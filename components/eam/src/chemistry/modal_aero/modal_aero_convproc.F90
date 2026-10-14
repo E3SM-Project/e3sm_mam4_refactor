@@ -220,6 +220,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
                             !  6 = pseudo precip-evap resuspension (for history file)
 
 
+#include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_intr_beg_yml.f90"
+
 !
 ! Initialize
 !
@@ -373,6 +375,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
         enddo ! ll
      enddo ! n
   endif
+
+#include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_intr_end_yml.f90"
 
 end subroutine ma_convproc_intr
 
