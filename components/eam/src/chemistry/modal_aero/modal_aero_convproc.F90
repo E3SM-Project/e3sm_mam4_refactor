@@ -316,6 +316,7 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
         endif
      enddo
 
+#if 0
      !
      ! do shallow conv processing
      !
@@ -337,6 +338,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
               qsrflx, dt,                            &  ! in
               ptend_lq, ptend_q,       qnew          )  ! inout
 
+
+
      ! update variables for output
      do icnst = 1, pcnst
         if ( .not. dotend(icnst) ) cycle
@@ -352,7 +355,7 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
                 + qsrflx(1:ncol,icnst,4) + qsrflx(1:ncol,icnst,5)
         endif
      enddo
-
+#endif 
   endif ! (convproc_do_aer  .or. convproc_do_gas) then
 
 ! output wet deposition fields to history
