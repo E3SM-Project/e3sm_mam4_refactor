@@ -5,6 +5,7 @@
   type(yaml_vars) :: yaml
   integer  :: unit_input, unit_output, y_nstep
   integer,save :: n_calls=0
+  integer  :: convproc_do_aer_int, convproc_do_gas_int
 
   !populate YAML structure
   yaml%lev_print = 51 !level (**remove these if generating data for a dependent subroutines**)
@@ -31,13 +32,23 @@
 !             unit_input, unit_output) !intent-out
           unit_input, unit_output) !intent-out
 
-     !start by adding an input string
-     call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
-          'convective_processing',yaml%nstep_print, yaml%lev_print)
+      !start by adding an input string
+      call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
+           'convective_processing',yaml%nstep_print, yaml%lev_print)
 
-     !< add code for writing data here>
-     ! state components - extract from state%var instead of passing state directly
-     call write_1d_var(unit_input, unit_output, 'state_pdeldry', pver, state_pdeldry(yaml%col_print,:))
+      !< add code for writing data here>
+      ! Convert logical flags to integers
+      convproc_do_aer_int = 0
+      if (convproc_do_aer) convproc_do_aer_int = 1
+      convproc_do_gas_int = 0
+      if (convproc_do_gas) convproc_do_gas_int = 1
+
+      ! Write control flags
+      call write_var(unit_input, unit_output, 'convproc_do_aer', convproc_do_aer_int)
+      call write_var(unit_input, unit_output, 'convproc_do_gas', convproc_do_gas_int)
+
+      ! state components - extract from state%var instead of passing state directly
+      call write_1d_var(unit_input, unit_output, 'state_pdeldry', pver, state_pdeldry(yaml%col_print,:))
      call write_1d_var(unit_input, unit_output, 'state_pdel', pver, state_pdel(yaml%col_print,:))
      call write_1d_var(unit_input, unit_output, 'state_t', pver, state_t(yaml%col_print,:))
      call write_1d_var(unit_input, unit_output, 'state_pmid', pver, state_pmid(yaml%col_print,:))
