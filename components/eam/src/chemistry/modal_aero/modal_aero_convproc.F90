@@ -220,6 +220,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
                             !  6 = pseudo precip-evap resuspension (for history file)
 
 
+#include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_intr_beg_yml.f90"
+
 !
 ! Initialize
 !
@@ -314,6 +316,7 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
         endif
      enddo
 
+#if 0
      !
      ! do shallow conv processing
      !
@@ -335,6 +338,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
               qsrflx, dt,                            &  ! in
               ptend_lq, ptend_q,       qnew          )  ! inout
 
+
+
      ! update variables for output
      do icnst = 1, pcnst
         if ( .not. dotend(icnst) ) cycle
@@ -350,7 +355,7 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
                 + qsrflx(1:ncol,icnst,4) + qsrflx(1:ncol,icnst,5)
         endif
      enddo
-
+#endif 
   endif ! (convproc_do_aer  .or. convproc_do_gas) then
 
 ! output wet deposition fields to history
@@ -373,6 +378,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
         enddo ! ll
      enddo ! n
   endif
+
+#include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_intr_end_yml.f90"
 
 end subroutine ma_convproc_intr
 
