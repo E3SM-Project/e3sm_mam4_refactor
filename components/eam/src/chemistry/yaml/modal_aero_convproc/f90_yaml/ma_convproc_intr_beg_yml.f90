@@ -48,15 +48,15 @@
       call write_var(unit_input, unit_output, 'convproc_do_gas', convproc_do_gas_int)
 
       ! state components - extract from state%var instead of passing state directly
-      call write_1d_var(unit_input, unit_output, 'state_pdeldry', pver, state_pdeldry(yaml%col_print,:))
-     call write_1d_var(unit_input, unit_output, 'state_pdel', pver, state_pdel(yaml%col_print,:))
-     call write_1d_var(unit_input, unit_output, 'state_t', pver, state_t(yaml%col_print,:))
-     call write_1d_var(unit_input, unit_output, 'state_pmid', pver, state_pmid(yaml%col_print,:))
+     call write_1d_var(unit_input, unit_output, 'state_pdeldry', pver, state%pdeldry(yaml%col_print,:))
+     call write_1d_var(unit_input, unit_output, 'state_pdel', pver, state%pdel(yaml%col_print,:))
+     call write_1d_var(unit_input, unit_output, 'state_t', pver, state%t(yaml%col_print,:))
+     call write_1d_var(unit_input, unit_output, 'state_pmid', pver, state%pmid(yaml%col_print,:))
      call write_2d_var(unit_input, unit_output, 'state_q', pver, pcnst, state%q(yaml%col_print,:,:))
 
      ! initial ptend components
-     call write_1d_var(unit_input, unit_output, 'ptend_lq_init', pcnst, ptend_lq)
-     call write_2d_var(unit_input, unit_output, 'ptend_q_init', pver, pcnst, ptend_q(yaml%col_print,:,:))
+     call write_1d_var(unit_input, unit_output, 'ptend_lq_init', pcnst, ptend%lq)
+     call write_2d_var(unit_input, unit_output, 'ptend_q_init', pver, pcnst, ptend%q(yaml%col_print,:,:))
 
      call write_1d_var(unit_input, unit_output, 'aerdepwetis_init', pcnst, aerdepwetis(yaml%col_print,:))
      call write_var(unit_input,unit_output,'dt',dt)
