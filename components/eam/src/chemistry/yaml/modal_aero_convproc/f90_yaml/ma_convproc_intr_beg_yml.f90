@@ -58,6 +58,7 @@
      call write_1d_var(unit_input, unit_output, 'ptend_lq_init', pcnst, ptend_lq)
      call write_2d_var(unit_input, unit_output, 'ptend_q_init', pver, pcnst, ptend_q(yaml%col_print,:,:))
 
+     call write_1d_var(unit_input, unit_output, 'aerdepwetis_init', pcnst, aerdepwetis(yaml%col_print,:))
      call write_var(unit_input,unit_output,'dt',dt)
      call write_1d_var(unit_input,unit_output,'dp_frac', pver, dp_frac(yaml%col_print,:))
      call write_1d_var(unit_input,unit_output,'icwmrdp', pver, icwmrdp(yaml%col_print,:))
