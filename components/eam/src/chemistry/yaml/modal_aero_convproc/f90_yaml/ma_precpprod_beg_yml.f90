@@ -54,9 +54,9 @@
         call write_var(unit_input, unit_output, 'icol',icol)!write a single
         call write_var(unit_input, unit_output, 'kk',kk)
         call write_var(unit_input, unit_output, 'pcnst_extd',pcnst_extd)
-        call write_1d_var(unit_input, unit_output, 'rprd', pver, rprd(yaml%col_print, :))
-        call write_2d_var(unit_input, unit_output, 'dcondt_wetdep', pcnst_extd,pver, dcondt_wetdep)
-        call write_1d_var(unit_input, unit_output, 'dpdry_i', pver, dpdry_i)
+        call write_var(unit_input, unit_output, 'rprd', rprd(icol, kk))
+        call write_1d_var(unit_input, unit_output, 'dcondt_wetdep', pcnst_extd,dcondt_wetdep(:,kk))
+        call write_var(unit_input, unit_output, 'dpdry_i', dpdry_i(kk))
         call write_1d_var(unit_input, unit_output, 'doconvproc_extd', pcnst_extd,doconvproc_extd)
         call write_var(unit_input, unit_output, 'x_ratio',x_ratio)
         call write_1d_var(unit_input, unit_output,'species_class',pcnst,species_class)
@@ -64,9 +64,9 @@
         call write_var(unit_input, unit_output, 'pr_flux_tmp',pr_flux_tmp)
         call write_var(unit_input, unit_output, 'pr_flux_base',pr_flux_base)
         call write_1d_var(unit_input, unit_output, 'wd_flux', pcnst_extd, wd_flux)
-        call write_2d_var(unit_input, unit_output, 'dcondt', pcnst_extd,pver, dcondt)
-        call write_2d_var(unit_input, unit_output, 'dcondt_prevap', pcnst_extd,pver, dcondt_prevap)
-        call write_2d_var(unit_input, unit_output, 'dcondt_prevap_hist', pcnst_extd,pver, dcondt_prevap_hist)
+        call write_1d_var(unit_input, unit_output, 'dcondt', pcnst_extd,dcondt(:,kk))
+        call write_1d_var(unit_input, unit_output, 'dcondt_prevap', pcnst_extd,dcondt_prevap(:,kk))
+        call write_1d_var(unit_input, unit_output, 'dcondt_prevap_hist', pcnst_extd,dcondt_prevap_hist(:,kk))
 
 
         !call write_var(unit_input, unit_output, fld_name,field)!write a single variable
