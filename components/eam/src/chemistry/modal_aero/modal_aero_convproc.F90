@@ -1034,6 +1034,7 @@ jtsub_loop_main_aa: &
 
         ! calculate effects of precipitation evaporation
         call ma_precpevap_convproc(                             & 
+               lchnk,                                           & ! in
                dcondt_wetdep,                                   & ! in
                rprd,   evapc,           dpdry_i,                & ! in
                icol,   ktop,            pcnst_extd,             & ! in
@@ -2114,6 +2115,7 @@ jtsub_loop_main_aa: &
 
 !=========================================================================================
    subroutine ma_precpevap_convproc(                           &
+               lchnk,                                           & ! in
               dcondt_wetdep,                                   & ! in
               rprd,    evapc,         dpdry_i,                 & ! in
               icol,    ktop,          pcnst_extd,              & ! in
@@ -2139,6 +2141,7 @@ jtsub_loop_main_aa: &
 !-----------------------------------------------------------------------
 ! arguments
 ! (note:  TMR = tracer mixing ratio)
+    integer,  intent(in)    :: lchnk             ! chunk identifier
    integer,  intent(in)    :: pcnst_extd        ! aerosol dimension [unitless]
    real(r8), intent(inout) :: dcondt(pcnst_extd,pver)
                               ! overall TMR tendency from convection [kg/kg/s]
@@ -2227,6 +2230,7 @@ jtsub_loop_main_aa: &
 
 ! step 2 - precip production and aerosol scavenging
       call  ma_precpprod(                                         &
+              lchnk,                                              & ! in
               rprd,   dpdry_i,  icol,    kk,    pcnst_extd,       & ! in
               doconvproc_extd,  x_ratio,        species_class,    & ! in
               pr_flux,        pr_flux_tmp,       pr_flux_base,    & ! inout
@@ -2305,6 +2309,7 @@ jtsub_loop_main_aa: &
 
 !=========================================================================================
    subroutine ma_precpprod(                                       &
+               lchnk,                                              &  ! in
               rprd,   dpdry_i,  icol,   kk,     pcnst_extd,       &  ! in
               doconvproc_extd,  x_ratio,        species_class,    &  ! in
               pr_flux,        pr_flux_tmp,       pr_flux_base,    &  ! inout
@@ -2315,6 +2320,7 @@ jtsub_loop_main_aa: &
 ! step 2 in ma_precpevap_convproc: aerosol scavenging from precipitation production
 !------------------------------------------
 
+   integer,  intent(in)    :: lchnk             ! chunk identifier
    integer,  intent(in)    :: icol  ! normal (ungathered) i index for current column
    integer,  intent(in)    :: kk
    integer,  intent(in)    :: pcnst_extd        ! aerosol dimension [unitless]
