@@ -55,17 +55,17 @@
              'compute_tendencies',yaml%nstep_print, yaml%lev_print)
 
         !< add code for writing data here>
-        call write_1d_var(unit_input,unit_output,'state_pdeldry', pver,state_pdeldry(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'state_t',pver,state_t(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'state_pmid',pver,state_pmid(yaml%col_print,:))
+        call write_1d_var(unit_input,unit_output,'state_pdeldry', pver,state_pdeldry(ideep(1),:))
+        call write_1d_var(unit_input,unit_output,'state_t',pver,state_t(ideep(1),:))
+        call write_1d_var(unit_input,unit_output,'state_pmid',pver,state_pmid(ideep(1),:))
         call write_var(unit_input,unit_output,'dt',dt)
-        call write_2d_var(unit_input, unit_output,'qnew', pver,pcnst, qnew(yaml%col_print, :,:))
+        call write_2d_var(unit_input, unit_output,'qnew', pver,pcnst, qnew(ideep(1), :,:))
         call write_var(unit_input,unit_output,'nsrflx',nsrflx)
-        call write_1d_var(unit_input,unit_output,'dp_frac', pver,dp_frac(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'icwmrdp', pver,icwmrdp(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'rprddp', pver,rprddp(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'evapcdp',pver,evapcdp(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'dlfdp', pver,dlfdp(yaml%col_print,:))
+        call write_1d_var(unit_input,unit_output,'dp_frac', pver,dp_frac(ideep(1),:))
+        call write_1d_var(unit_input,unit_output,'icwmrdp', pver,icwmrdp(ideep(1),:))
+        call write_1d_var(unit_input,unit_output,'rprddp', pver,rprddp(ideep(1),:))
+        call write_1d_var(unit_input,unit_output,'evapcdp',pver,evapcdp(ideep(1),:))
+        call write_1d_var(unit_input,unit_output,'dlfdp', pver,dlfdp(ideep(1),:))
         call write_1d_var(unit_input,unit_output,'mu', pver,mu(1,:))
         call write_1d_var(unit_input,unit_output,'md', pver,md(1,:))
         call write_1d_var(unit_input,unit_output,'du', pver,du(1,:))
@@ -77,8 +77,8 @@
         call write_var(unit_input,unit_output,'ideep', ideep(1))
         call write_var(unit_input,unit_output,'lengath',lengath)
         call write_1d_var(unit_input, unit_output,'species_class', pcnst, species_class(:))
-        call write_2d_var(unit_input, unit_output,'dqdt', pver,pcnst,dqdt(yaml%col_print, :,:))
-        call write_2d_var(unit_input, unit_output,'qsrflx', pcnst, nsrflx, qsrflx(yaml%col_print, :,:))
+        call write_2d_var(unit_input, unit_output,'dqdt', pver,pcnst,dqdt(ideep(1), :,:))
+        call write_2d_var(unit_input, unit_output,'qsrflx', pcnst, nsrflx, qsrflx(ideep(1), :,:))
 
         !call write_var(unit_input, unit_output, fld_name,field)!write a single variable
         !call write_1d_var(unit_input, unit_output, fld_name,dim,field) ! writes 1D variables of any dimension
