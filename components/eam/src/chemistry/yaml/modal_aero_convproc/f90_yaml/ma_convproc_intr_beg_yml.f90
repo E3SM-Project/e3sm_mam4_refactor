@@ -48,22 +48,22 @@
       call write_var(unit_input, unit_output, 'convproc_do_gas', convproc_do_gas_int)
 
       ! state components - extract from state%var instead of passing state directly
-     call write_1d_var(unit_input, unit_output, 'state_pdeldry', pver, state%pdeldry(yaml%col_print,:))
-     call write_1d_var(unit_input, unit_output, 'state_pdel', pver, state%pdel(yaml%col_print,:))
-     call write_1d_var(unit_input, unit_output, 'state_t', pver, state%t(yaml%col_print,:))
-     call write_1d_var(unit_input, unit_output, 'state_pmid', pver, state%pmid(yaml%col_print,:))
-     call write_2d_var(unit_input, unit_output, 'state_q', pver, pcnst, state%q(yaml%col_print,:,:))
+     call write_1d_var(unit_input, unit_output, 'state_pdeldry', pver, state%pdeldry(ideep(0),:))
+     call write_1d_var(unit_input, unit_output, 'state_pdel', pver, state%pdel(ideep(0),:))
+     call write_1d_var(unit_input, unit_output, 'state_t', pver, state%t(ideep(0),:))
+     call write_1d_var(unit_input, unit_output, 'state_pmid', pver, state%pmid(ideep(0),:))
+     call write_2d_var(unit_input, unit_output, 'state_q', pver, pcnst, state%q(ideep(0),:,:))
 
      ! initial ptend components
      call write_1d_var(unit_input, unit_output, 'ptend_lq_init', pcnst, ptend%lq)
-     call write_2d_var(unit_input, unit_output, 'ptend_q_init', pver, pcnst, ptend%q(yaml%col_print,:,:))
+     call write_2d_var(unit_input, unit_output, 'ptend_q_init', pver, pcnst, ptend%q(ideep(0),:,:))
 
-     call write_1d_var(unit_input, unit_output, 'aerdepwetis_init', pcnst, aerdepwetis(yaml%col_print,:))
+     call write_1d_var(unit_input, unit_output, 'aerdepwetis_init', pcnst, aerdepwetis(ideep(0),:))
      call write_var(unit_input,unit_output,'dt',dt)
-     call write_1d_var(unit_input,unit_output,'dp_frac', pver, dp_frac(yaml%col_print,:))
-     call write_1d_var(unit_input,unit_output,'icwmrdp', pver, icwmrdp(yaml%col_print,:))
-     call write_1d_var(unit_input,unit_output,'rprddp', pver, rprddp(yaml%col_print,:))
-     call write_1d_var(unit_input,unit_output,'evapcdp', pver, evapcdp(yaml%col_print,:))
+     call write_1d_var(unit_input,unit_output,'dp_frac', pver, dp_frac(ideep(yaml%col_print),:))
+     call write_1d_var(unit_input,unit_output,'icwmrdp', pver, icwmrdp(ideep(yaml%col_print),:))
+     call write_1d_var(unit_input,unit_output,'rprddp', pver, rprddp(ideep(yaml%col_print),:))
+     call write_1d_var(unit_input,unit_output,'evapcdp', pver, evapcdp(ideep(yaml%col_print),:))
      call write_1d_var(unit_input,unit_output,'sh_frac', pver, sh_frac(yaml%col_print,:))
      call write_1d_var(unit_input,unit_output,'icwmrsh', pver, icwmrsh(yaml%col_print,:))
      call write_1d_var(unit_input,unit_output,'rprdsh', pver, rprdsh(yaml%col_print,:))
