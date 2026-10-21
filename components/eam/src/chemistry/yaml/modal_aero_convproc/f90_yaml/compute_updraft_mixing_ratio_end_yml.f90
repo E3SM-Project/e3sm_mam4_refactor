@@ -1,4 +1,4 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV4
   ! YAML file output generation code- DO NOT PORT to C++
   if(yaml%flag_print .and. n_calls==1) then ! if this column exists in lchnk
 
@@ -11,8 +11,8 @@
      call write_2d_output_var(unit_output, 'dconudt_wetdep',pcnst_extd,pverp, dconudt_wetdep)
      call write_2d_output_var(unit_output, 'dconudt_activa',pcnst_extd,pverp, dconudt_activa)
      call write_1d_output_var(unit_output, 'fa_u', pver, fa_u) !writes 1D variables of any dimension in the output python module
-     call write_output_var(unit_output, 'xx_wcldbase',xx_wcldbase(yaml%col_print))
-     call write_output_var(unit_output, 'xx_kcldbase',xx_kcldbase(yaml%col_print))
+     call write_output_var(unit_output, 'xx_wcldbase',xx_wcldbase(icol))
+     call write_output_var(unit_output, 'xx_kcldbase',xx_kcldbase(icol))
 
      !call write_2d_output_var(unit_output, fld_name, dim1, dim2, field, inp_out_str) !writes 2D variables of any dimension in the output python module
 
