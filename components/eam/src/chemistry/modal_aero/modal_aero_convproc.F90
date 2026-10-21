@@ -436,7 +436,7 @@ subroutine ma_convproc_dp_intr(                &
      jt, maxg, ideep, lengath,   qnew,         & ! in
      nsrflx,  species_class,                   & ! in
      dqdt, qsrflx,                             & ! inout
-     dotend                                     ) ! in - YAML validation data structure
+     dotend, yaml                               ) ! in - YAML validation data structure
 !----------------------------------------------------------------------- 
 ! 
 ! Purpose: 
@@ -685,7 +685,7 @@ subroutine ma_convproc_sh_intr(                 &
                      dotend,     nsrflx,                             &
                      qsrflx,                                         & ! out
                      species_class,                                  & 
-                     xx_mfup_max, xx_wcldbase, xx_kcldbase           , yaml ) ! out
+                     xx_mfup_max, xx_wcldbase, xx_kcldbase           ) ! out
 
     ! output diagnostics fields
     call outfld( 'SH_MFUP_MAX', xx_mfup_max, pcols, lchnk )
