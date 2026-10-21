@@ -26,8 +26,8 @@
   ! ext_str = 'flag_'//adjustl(ext_str)
 
     !populate YAML structure
-  yaml%lev_print = 51 !level (**remove these if generating data for a dependent subroutines**)
-  yaml%nstep_print = 3 !time step(**remove these if generating data for a dependent subroutines**)
+  yaml%lev_print = 55 !level (**remove these if generating data for a dependent subroutines**)
+  yaml%nstep_print = 355 !time step(**remove these if generating data for a dependent subroutines**)
 
   !YAML file input generation code- DO NOT PORT to C++
   !print all inputs one-by-one at column "yaml%col_print"
@@ -36,10 +36,8 @@
 
   yaml%flag_print = .false. ! to write or not to write data (**remove these if generating data for a dependent subroutines**)
   !In the case of y_i or y_k are not passed as arguments:
-  if(yaml%col_print > 0 .and. y_nstep==yaml%nstep_print ) then
+  if(yaml%col_print > 0 .and. y_nstep==yaml%nstep_print .and. yaml%lev_print==kk ) then
   
-  yaml%lchnk_print = lchnk !(**remove these if generating data for a dependent subroutines**)
-  yaml%flag_print  = .true.!(**remove these if generating data for a dependent subroutines**)
 
   ! record number of calls that can output yaml file. you only need to write one set of input/output
   n_calls = n_calls+1
@@ -55,9 +53,11 @@
 
      ! record number of calls that can output yaml file. you only need to write one set of input/output
 !     n_calls = n_calls+1
-!     if (n_calls==1) then ! output the first call. change this if writing out other calls
+     if (n_calls==1) then ! output the first call. change this if writing out other calls
      ! if ((n_calls==1 .and. flag==0) .or. (n_calls==3 .and. flag==1) .or. (n_calls==5 .and. flag==2)) then ! this is an example of writing multiple sets of YAML files
 
+  yaml%lchnk_print = lchnk !(**remove these if generating data for a dependent subroutines**)
+  yaml%flag_print  = .true.!(**remove these if generating data for a dependent subroutines**)
 
         !open I/O yaml files (it can have an extra optional argument to pass a unique string to differentiate file names)
         call open_files('ma_precpprod', &  !intent-in
@@ -99,6 +99,6 @@
          !close only the input file, keep the output file open for writing
         close(unit_input)
         call freeunit(unit_input)
-!     endif
+     endif
   endif
 #endif
