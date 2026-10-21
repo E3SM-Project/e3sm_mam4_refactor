@@ -50,7 +50,7 @@
 
         !start by adding an input string
         call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
-             'compute_tendencies',yaml%nstep_print, yaml%lev_print)
+             'compute_updraft_mixing_ratio',yaml%nstep_print, yaml%lev_print)
 
         !< add code for writing data here>
         call write_1d_var(unit_input,unit_output,'doconvproc_extd', pcnst_extd,doconvproc_extd)

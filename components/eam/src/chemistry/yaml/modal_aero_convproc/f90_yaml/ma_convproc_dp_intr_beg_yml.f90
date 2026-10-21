@@ -52,7 +52,7 @@
 
         !start by adding an input string
         call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
-             'compute_tendencies',yaml%nstep_print, yaml%lev_print)
+             'ma_convproc_dp_intr',yaml%nstep_print, yaml%lev_print)
 
         !< add code for writing data here>
         call write_1d_var(unit_input,unit_output,'state_pdeldry', pver,state_pdeldry(ideep(1),:))
