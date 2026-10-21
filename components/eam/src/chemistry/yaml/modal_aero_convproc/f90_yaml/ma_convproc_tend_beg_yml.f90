@@ -1,4 +1,4 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV4
 
   !>
 
@@ -8,7 +8,7 @@
   integer,save :: n_calls=0   ! some subroutines are called multiple times in one timestep, record the number of calls
 
 
-!  if(yaml%col_print == y_i .and. y_nstep==yaml%nstep_print .and. y_k == yaml%lev_print) then ! if this column exists in y_lchnk
+!  if(yaml%col_print == y_i .and. y_nstep==yaml%nstep_print) then ! if this column exists in y_lchnk
      !<
      !In the case of y_i or y_k are not passed as arguments:
      !if(yaml%col_print >0 .and. y_nstep==yaml%nstep_print) then

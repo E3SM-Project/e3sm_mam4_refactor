@@ -1,4 +1,4 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV4
   !<"lchnk" is needed for the following code to work,
   ! temporarily pass it along from upper level subroutines
   ! as y_lchnk and uncomment the following code:
@@ -12,7 +12,7 @@
 
   !populate YAML structure
   yaml%lev_print = 54 !level (**remove these if generating data for a dependent subroutines**)
-  yaml%nstep_print = 355 !time step(**remove these if generating data for a dependent subroutines**)
+  yaml%nstep_print = 3 !time step(**remove these if generating data for a dependent subroutines**)
   y_lchnk = lchnk
 
   ! set ext_str if there are multiple sets of yaml output to be write out
