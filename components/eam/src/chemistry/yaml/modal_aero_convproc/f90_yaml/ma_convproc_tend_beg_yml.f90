@@ -53,7 +53,7 @@
         call write_1d_var(unit_input,unit_output,'cldfrac', pver,cldfrac(ideep(1),:))
         call write_1d_var(unit_input,unit_output,'icwmr', pver,icwmr(ideep(1),:))
         call write_1d_var(unit_input,unit_output,'rprd', pver,rprd(ideep(1),:))
-        call write_1d_var(unit_input,unit_output,'evapc',pver,evapc(ideep(1,:))
+        call write_1d_var(unit_input,unit_output,'evapc',pver,evapc(ideep(1),:))
         call write_1d_var(unit_input,unit_output,'doconvproc', ncnst,doconvproc(:))
         call write_1d_var(unit_input, unit_output,'species_class', pcnst, species_class(:))
         call write_var(unit_input,unit_output,'nsrflx',nsrflx)
