@@ -436,7 +436,7 @@ subroutine ma_convproc_dp_intr(                &
      jt, maxg, ideep, lengath,   qnew,         & ! in
      nsrflx,  species_class,                   & ! in
      dqdt, qsrflx,                             & ! inout
-     dotend                                    ) ! out
+     dotend                                     ) ! in - YAML validation data structure
 !----------------------------------------------------------------------- 
 ! 
 ! Purpose: 
@@ -542,8 +542,8 @@ subroutine ma_convproc_dp_intr(                &
                      dqdt,                                           & ! out
                      dotend,     nsrflx,                             &
                      qsrflx,                                         & ! out
-                     species_class,                                  &
-                     xx_mfup_max, xx_wcldbase, xx_kcldbase           ) ! out
+                     species_class,                                  &                                  
+                     xx_mfup_max, xx_wcldbase, xx_kcldbase           , yaml ) ! out
 
 
     ! output diagnostics fields
@@ -684,8 +684,8 @@ subroutine ma_convproc_sh_intr(                 &
                      dqdt,                                           & ! out
                      dotend,     nsrflx,                             &
                      qsrflx,                                         & ! out
-                     species_class,                                  &
-                     xx_mfup_max, xx_wcldbase, xx_kcldbase           ) ! out
+                     species_class,                                  & 
+                     xx_mfup_max, xx_wcldbase, xx_kcldbase           , yaml ) ! out
 
     ! output diagnostics fields
     call outfld( 'SH_MFUP_MAX', xx_mfup_max, pcols, lchnk )
@@ -734,7 +734,8 @@ subroutine ma_convproc_tend(                                         &
                      doconvproc, nsrflx,                             & ! in
                      qsrflx,                                         & ! out
                      species_class,                                  & ! in
-                     xx_mfup_max, xx_wcldbase, xx_kcldbase           ) ! out
+                     xx_mfup_max, xx_wcldbase, xx_kcldbase,          & ! out
+                     yaml                                            ) ! in - YAML validation data structure
 
 !----------------------------------------------------------------------- 
 ! 
@@ -1000,8 +1001,8 @@ jtsub_loop_main_aa: &
                 dt,     dp_i,   dpdry_i,        cldfrac,                & ! in
                 rhoair_i,       zmagl,  dz,     mu_i,   eudp,           & ! in
                 const,  temperature,    aqfrac, icwmr,  rprd,           & ! in
-                fa_u,   dconudt_wetdep,         dconudt_activa,         & ! out
-                conu,           xx_wcldbase,    xx_kcldbase             ) ! inout
+                fa_u,   dconudt_wetdep,         dconudt_activa,         & ! out 
+                conu,           xx_wcldbase,    xx_kcldbase             , yaml ) ! inout
 
 
         ! Compute downdraft mixing ratios from cloudtop to cloudbase
@@ -1394,7 +1395,8 @@ jtsub_loop_main_aa: &
                 rhoair_i,       zmagl,  dz,     mu_i,   eudp,           & ! in
                 const,  temperature,    aqfrac, icwmr,  rprd,           & ! in
                 fa_u,   dconudt_wetdep,         dconudt_activa,         & ! out
-                conu,           xx_wcldbase,    xx_kcldbase             ) ! inout 
+                conu,           xx_wcldbase,    xx_kcldbase,            & ! inout
+                yaml                                                    ) ! in - YAML validation data structure 
 !-----------------------------------------------------------------------
 ! Compute updraft mixing ratios from cloudbase to cloudtop 
 ! as well as tendencies of wetdeposition and activation from updraft
