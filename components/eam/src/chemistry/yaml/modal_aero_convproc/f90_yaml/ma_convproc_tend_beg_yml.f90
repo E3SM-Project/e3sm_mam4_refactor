@@ -1,4 +1,4 @@
-#ifdef YAML_CONV4
+#ifdef YAML_CONV2
 
   !>
 

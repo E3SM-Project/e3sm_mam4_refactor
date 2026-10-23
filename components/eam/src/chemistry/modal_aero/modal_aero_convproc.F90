@@ -436,7 +436,7 @@ subroutine ma_convproc_dp_intr(                &
      jt, maxg, ideep, lengath,   qnew,         & ! in
      nsrflx,  species_class,                   & ! in
      dqdt, qsrflx,                             & ! inout
-     dotend, yaml                               ) ! in - YAML validation data structure
+     dotend                                    ) ! out
 !----------------------------------------------------------------------- 
 ! 
 ! Purpose: 
@@ -624,7 +624,7 @@ subroutine ma_convproc_sh_intr(                 &
    integer   :: maxg(pcols)       ! Index of cloud bot for each column
    integer   :: ideep(pcols)      ! Gathering array [index]
    integer   :: lengath           ! Gathered min lon indices over which to operate
-
+#if 0
 #include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_sh_intr_beg_yml.f90"
 
 !
@@ -693,6 +693,7 @@ subroutine ma_convproc_sh_intr(                 &
     call outfld( 'SH_KCLDBASE', xx_kcldbase, pcols, lchnk )
 
 #include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_sh_intr_end_yml.f90"
+#endif
 end subroutine ma_convproc_sh_intr
 
 !=========================================================================================
@@ -1509,7 +1510,7 @@ jtsub_loop_main_aa: &
 ! Now apply transformation and removal changes
 
             ! aerosol activation - method 2
-            call compute_activation_tend(                       &
+            call compute_activation_tend( yaml,                       &
                         icol,           kk,        f_ent,       & ! in
                         cldfrac_i,      rhoair_i,  mu_i,        & ! in
                         dt_u,   wup,    icwmr,     temperature, & ! in
@@ -1583,7 +1584,7 @@ jtsub_loop_main_aa: &
    end subroutine compute_wup
 
 !====================================================================================
-   subroutine compute_activation_tend(                          &
+   subroutine compute_activation_tend( yaml,                          &
                         icol,           kk,        f_ent,       & ! in
                         cldfrac_i,      rhoair_i,  mu_i,        & ! in
                         dt_u,   wup,    icwmr,     temperature, & ! in
@@ -1645,7 +1646,7 @@ jtsub_loop_main_aa: &
    endif
 
    if ( do_act_this_lev ) then
-        call ma_activate_convproc(                                 &
+        call ma_activate_convproc( yaml,                                 &
                      conu(:,kk), dconudt_activa(:,kk),             & ! inout
                      f_ent,      dt_u(kk),            wup(kk),     & ! in
                      temperature(icol,kk),            rhoair_i(kk),& ! in
@@ -1656,7 +1657,7 @@ jtsub_loop_main_aa: &
    end subroutine compute_activation_tend
 
 !=========================================================================================
-   subroutine ma_activate_convproc(             &
+   subroutine ma_activate_convproc( yaml,             &
               conu,       dconudt,              & ! inout
               f_ent,      dt_u,      wup,       & ! in
               tair,       rhoair,               & ! in
