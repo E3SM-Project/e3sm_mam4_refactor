@@ -1623,7 +1623,7 @@ jtsub_loop_main_aa: &
 
    logical      :: do_act_this_lev      ! flag for doing activation at current level
    integer      :: kp1                  ! kk + 1
-#include "../yaml/modal_aero_convproc/f90_yaml/compute_activation_tend_beg_yml.f90"
+#include "../yaml/modal_aero_convproc/f90_yaml/compute_activation_tend_decl_yml.f90"
 
    ! initiate variables
    do_act_this_lev = .false.
@@ -1644,6 +1644,8 @@ jtsub_loop_main_aa: &
         do_act_this_lev = .true.
         kactcnt = kactcnt + 1
    endif
+
+#include "../yaml/modal_aero_convproc/f90_yaml/compute_activation_tend_beg_yml_v2.f90"
 
    if ( do_act_this_lev ) then
         call ma_activate_convproc( yaml,                                 &
