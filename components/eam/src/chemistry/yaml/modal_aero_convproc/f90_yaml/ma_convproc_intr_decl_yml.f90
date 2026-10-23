@@ -1,4 +1,4 @@
-#ifdef YAML_CONV2
+#ifdef YAML_CONV4
   ! lchnk is available from state%lchnk (no new parameter needed)
 
   character(len=200) :: ext_str

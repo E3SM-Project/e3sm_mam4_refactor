@@ -1,4 +1,4 @@
-#ifdef YAML_CONV4
+#ifdef YAML_CONV2
   !<"lchnk" is needed for the following code to work,
   ! temporarily pass it along from upper level subroutines
   ! as y_lchnk and uncomment the following code:
