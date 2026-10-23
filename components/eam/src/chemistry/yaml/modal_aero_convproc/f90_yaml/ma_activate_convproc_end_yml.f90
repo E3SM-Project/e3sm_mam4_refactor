@@ -1,4 +1,4 @@
-#ifdef YAML_CONV4
+#ifdef YAML_CONV2
   ! YAML file output generation code- DO NOT PORT to C++
   if(yaml%flag_print .and. yaml%lev_print==kk .and. n_calls==1) then ! if this column exists in lchnk
 

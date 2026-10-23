@@ -1,4 +1,4 @@
-#ifdef YAML_CONV2
+#ifdef YAML_CONV4
   if(yaml%flag_print) then ! if this column exists in lchnk
 
      !write output header
