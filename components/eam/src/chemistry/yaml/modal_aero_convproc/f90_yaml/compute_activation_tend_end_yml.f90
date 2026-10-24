@@ -1,6 +1,6 @@
 #ifdef YAML_CONV2
   ! YAML file output generation code- DO NOT PORT to C++
-  if(yaml%flag_print .and. (yaml%lev_print==kk .or. kk==70) .and. (n_calls<=2) ) then ! if this column exists in lchnk
+  if(yaml%flag_print .and. (yaml%lev_print==kk .or. kk==70) .and. (n_calls==1) ) then ! if this column exists in lchnk
 
      !write output header
      call write_output_header(unit_output)

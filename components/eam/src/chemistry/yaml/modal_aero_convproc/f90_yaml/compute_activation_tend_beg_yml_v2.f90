@@ -5,11 +5,11 @@
   ! here gives an example that "flag" in the code can be 0, 1, or 2:
   ! write(ext_str,'(I2)') flag
   ! ext_str = 'flag_'//adjustl(ext_str)
-  if (do_act_this_lev) then
-        ext_str = 'do_act_true'
-  else
-        ext_str = 'do_act_false'
-  endif
+  !if (do_act_this_lev) then
+  !      ext_str = 'do_act_true'
+  !else
+  !      ext_str = 'do_act_false'
+  !endif
 
   !YAML file input generation code- DO NOT PORT to C++
   !print all inputs one-by-one at column "yaml%col_print"
@@ -24,14 +24,14 @@
 
      ! record number of calls that can output yaml file. you only need to write one set of input/output
      n_calls = n_calls+1
-     if (n_calls<=2) then ! output the first call. change this if writing out other calls
+     if (n_calls==1) then ! output the first call. change this if writing out other calls
      ! if ((n_calls==1 .and. flag==0) .or. (n_calls==3 .and. flag==1) .or. (n_calls==5 .and. flag==2)) then ! this is an example of writing multiple sets of YAML files
 
 
         !open I/O yaml files (it can have an extra optional argument to pass a unique string to differentiate file names)
         call open_files('compute_activation_tend', &  !intent-in
-!             unit_input, unit_output) !intent-out
-             unit_input, unit_output, trim(ext_str)) !intent-out, with the use of ext_str
+             unit_input, unit_output) !intent-out
+!            unit_input, unit_output, trim(ext_str)) !intent-out, with the use of ext_str
 
 
         !start by adding an input string
