@@ -7,10 +7,10 @@
      !start writing data
      ! Final ptend components - decomposed from physics_ptend type
      call write_1d_output_var(unit_output, 'ptend_lq', pcnst, ptend_lq)
-     call write_2d_output_var(unit_output, 'ptend_q', pver, pcnst, ptend_q(yaml%col_print,:,:))
+     call write_2d_output_var(unit_output, 'ptend_q', pver, pcnst, ptend_q(ideep(1),:,:))
      
      ! Final aerosol wet deposition (interstitial)
-     call write_1d_output_var(unit_output, 'aerdepwetis', pcnst, aerdepwetis(yaml%col_print,:))
+     call write_1d_output_var(unit_output, 'aerdepwetis', pcnst, aerdepwetis(ideep(1),:))
 
      !writes aerosol mmr from state%q or q vector(cloud borne and interstitial) in the output python module
      !"aer_num_only" is .ture. if printing aerosol num only
