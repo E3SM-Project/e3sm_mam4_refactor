@@ -1,4 +1,4 @@
-#ifdef YAML_CONV4
+#ifdef YAML_CONV2
   ! lchnk is available from state%lchnk (no new parameter needed)
 
   character(len=200) :: ext_str
@@ -9,7 +9,7 @@
 
   !populate YAML structure
   yaml%lev_print = 51 !level (**remove these if generating data for a dependent subroutines**)
-  yaml%nstep_print = 355 !time step(**remove these if generating data for a dependent subroutines**)
+  yaml%nstep_print = 3 !time step(**remove these if generating data for a dependent subroutines**)
 
   !YAML file input generation code- DO NOT PORT to C++
   !print all inputs one-by-one at column "yaml%col_print"

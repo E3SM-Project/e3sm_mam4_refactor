@@ -1571,7 +1571,7 @@ jtsub_loop_main_aa: &
 !       and Thunderstorm Project data which they also show
 !    the vertical profile shape is a crude fit to their median updraft profile
    else
-       zkm = zmagl(kk)*1.0e-3
+       zkm = zmagl(kk)*1.0_r8e-3
        if (zkm .ge. 1.0) then
            wup(kk) = w_peak*((zkm/w_peak)**0.21_r8)
        else

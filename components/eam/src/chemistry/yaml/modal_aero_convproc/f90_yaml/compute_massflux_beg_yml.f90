@@ -30,7 +30,7 @@
 
         !start by adding an input string
         call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
-             'compute_tendencies',yaml%nstep_print, yaml%lev_print)
+             'compute_massflux',yaml%nstep_print, yaml%lev_print)
 
         !< add code for writing data here>
         call write_var(unit_input, unit_output, 'ii', ii)
@@ -41,7 +41,7 @@
         call write_1d_var(unit_input,unit_output,'du', pver,du(ii,:))
         call write_1d_var(unit_input,unit_output,'eu', pver,eu(ii,:))
         call write_1d_var(unit_input,unit_output,'ed', pver,ed(ii,:))
-        call write_var(unit_input, unit_output, 'xx_mfup_max', xx_mfup_max(yaml%col_print))
+        call write_var(unit_input, unit_output, 'xx_mfup_max', xx_mfup_max(icol))
 
         !call write_var(unit_input, unit_output, fld_name,field)!write a single variable
         !call write_1d_var(unit_input, unit_output, fld_name,dim,field) ! writes 1D variables of any dimension
