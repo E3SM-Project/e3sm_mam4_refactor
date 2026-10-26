@@ -75,6 +75,9 @@
         call write_2d_var(unit_input, unit_output,'conu', pcnst_extd, pverp, conu)
         call write_var(unit_input, unit_output,'xx_wcldbase',xx_wcldbase(icol))
         call write_var(unit_input, unit_output,'xx_kcldbase',xx_kcldbase(icol))
+        call write_1d_var(unit_input,unit_output, 'fa_u', pver, fa_u) 
+        call write_2d_var(unit_input, unit_output, 'dconudt_wetdep',pcnst_extd,pverp, dconudt_wetdep)
+        call write_2d_var(unit_input, unit_output, 'dconudt_activa',pcnst_extd,pverp, dconudt_activa)
 
 
         !call write_var(unit_input, unit_output, fld_name,field)!write a single variable
