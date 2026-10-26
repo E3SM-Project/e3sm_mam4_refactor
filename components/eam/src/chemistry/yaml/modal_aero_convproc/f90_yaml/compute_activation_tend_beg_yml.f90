@@ -1,4 +1,4 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV2
   !<"lchnk" is needed for the following code to work,
   ! temporarily pass it along from upper level subroutines
   ! as y_lchnk and uncomment the following code:
@@ -54,25 +54,30 @@
 
         !start by adding an input string
         call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
-             'compute_tendencies',yaml%nstep_print, kk)
+             'compute_activation_tend',yaml%nstep_print, kk)
 
         !< add code for writing data here>
+        !Scalars
         call write_var(unit_input, unit_output, 'icol', icol)
         call write_var(unit_input, unit_output, 'kk', kk)
         call write_var(unit_input, unit_output, 'f_ent', f_ent)
-        call write_1d_var(unit_input,unit_output,'cldfrac_i', pver,cldfrac_i)
-        call write_1d_var(unit_input,unit_output,'rhoair_i', pver,rhoair_i)
-        call write_1d_var(unit_input,unit_output,'mu_i', pverp,mu_i)
-        call write_1d_var(unit_input,unit_output,'dt_u', pver,dt_u)
-        call write_1d_var(unit_input,unit_output,'wup', pver,wup)
-        call write_1d_var(unit_input,unit_output,'temperature',pver,temperature(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'icwmr',pver,icwmr(yaml%col_print,:))
         call write_var(unit_input, unit_output,'kactcnt',kactcnt)
         call write_var(unit_input, unit_output,'kactfirst',kactfirst)
-        call write_2d_var(unit_input, unit_output,'conu', pcnst_extd, pverp,conu)
-        call write_2d_var(unit_input, unit_output,'dconudt_activa', pcnst_extd, pverp,dconudt_activa)
-        call write_var(unit_input,unit_output,'xx_wcldbase',xx_wcldbase(yaml%col_print))
-        call write_var(unit_input,unit_output,'xx_kcldbase',xx_kcldbase(yaml%col_print))
+        !Single-level 1D values (scalar at specific level kk)
+        call write_var(unit_input, unit_output, 'cldfrac_i_kk', cldfrac_i(kk))
+        call write_var(unit_input, unit_output, 'rhoair_i_kk', rhoair_i(kk))
+        call write_var(unit_input, unit_output, 'mu_i_kk', mu_i(kk))
+        call write_var(unit_input, unit_output, 'mu_i_kp1', mu_i(kk+1))
+        call write_var(unit_input, unit_output, 'dt_u_kk', dt_u(kk))
+        call write_var(unit_input, unit_output, 'wup_kk', wup(kk))
+        !Single (icol,kk) scalars
+        call write_var(unit_input, unit_output, 'temperature_kk', temperature(icol,kk))
+        call write_var(unit_input, unit_output, 'icwmr_kk', icwmr(icol,kk))
+        call write_var(unit_input,unit_output,'xx_wcldbase_icol',xx_wcldbase(icol))
+        call write_var(unit_input,unit_output,'xx_kcldbase_icol',xx_kcldbase(icol))
+        !1D species slices at level kk
+        call write_1d_var(unit_input, unit_output, 'conu_kk', pcnst_extd, conu(:,kk))
+        call write_1d_var(unit_input, unit_output, 'dconudt_activa_kk', pcnst_extd, dconudt_activa(:,kk))
         !call write_var(unit_input, unit_output, fld_name,field)!write a single variable
         !call write_1d_var(unit_input, unit_output, fld_name,dim,field) ! writes 1D variables of any dimension
         !call write_2d_var(unit_input, unit_output, fld_name, dim1, dim2, field) ! writes 2D variables of any dimension: field(dim1,dim2)

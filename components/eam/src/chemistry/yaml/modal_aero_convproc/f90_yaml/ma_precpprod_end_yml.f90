@@ -1,6 +1,6 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV3
   ! YAML file output generation code- DO NOT PORT to C++
-  if(yaml%flag_print .and. yaml%lev_print==kk .and. n_calls==1) then ! if this column exists in lchnk
+  if(yaml%flag_print) then ! if this column exists in lchnk
 
      !write output header
      call write_output_header(unit_output)
@@ -11,9 +11,9 @@
         call write_output_var(unit_output, 'pr_flux_tmp',pr_flux_tmp)
         call write_output_var(unit_output, 'pr_flux_base',pr_flux_base)
         call write_1d_output_var(unit_output, 'wd_flux', pcnst_extd, wd_flux)
-        call write_2d_output_var(unit_output, 'dcondt', pcnst_extd,pver, dcondt)
-        call write_2d_output_var(unit_output, 'dcondt_prevap', pcnst_extd,pver, dcondt_prevap)
-        call write_2d_output_var(unit_output, 'dcondt_prevap_hist', pcnst_extd,pver, dcondt_prevap_hist)
+        call write_1d_output_var(unit_output, 'dcondt', pcnst_extd,dcondt(:,kk))
+        call write_1d_output_var(unit_output, 'dcondt_prevap', pcnst_extd,dcondt_prevap(:,kk))
+        call write_1d_output_var(unit_output, 'dcondt_prevap_hist', pcnst_extd,dcondt_prevap_hist(:,kk))
      !call write_output_var(unit_output, fld_name, field, inp_out_str)  !write a single output variable
      !call write_1d_output_var(unit_output, fld_name, dim, field, inp_out_str) !writes 1D variables of any dimension in the output python module
      !call write_2d_output_var(unit_output, fld_name, dim1, dim2, field, inp_out_str) !writes 2D variables of any dimension in the output python module

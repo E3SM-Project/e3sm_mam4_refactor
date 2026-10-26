@@ -1,4 +1,4 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV2
   !<"lchnk" is needed for the following code to work,
   ! temporarily pass it along from upper level subroutines
   ! as y_lchnk and uncomment the following code:
@@ -50,7 +50,7 @@
 
         !start by adding an input string
         call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
-             'compute_tendencies',yaml%nstep_print, yaml%lev_print)
+             'compute_updraft_mixing_ratio',yaml%nstep_print, yaml%lev_print)
 
         !< add code for writing data here>
         call write_1d_var(unit_input,unit_output,'doconvproc_extd', pcnst_extd,doconvproc_extd)
@@ -61,20 +61,20 @@
         call write_var(unit_input, unit_output,'dt',dt)
         call write_1d_var(unit_input,unit_output,'dp_i', pver,dp_i(:))
         call write_1d_var(unit_input,unit_output,'dpdry_i', pver,dpdry_i(:))
-        call write_1d_var(unit_input,unit_output,'cldfrac', pver,cldfrac(yaml%col_print,:))
+        call write_1d_var(unit_input,unit_output,'cldfrac', pver,cldfrac(icol,:))
         call write_1d_var(unit_input,unit_output,'rhoair_i', pver,rhoair_i)
         call write_1d_var(unit_input,unit_output,'zmagl', pver,zmagl)
         call write_var(unit_input, unit_output,'dz',dz)
         call write_1d_var(unit_input,unit_output,'mu_i', pverp,mu_i)
         call write_1d_var(unit_input,unit_output,'eudp', pver,eudp)
         call write_2d_var(unit_input, unit_output,'const', pcnst_extd, pver, const)
-        call write_1d_var(unit_input,unit_output,'temperature',pver,temperature(yaml%col_print,:))
+        call write_1d_var(unit_input,unit_output,'temperature',pver,temperature(icol,:))
         call write_1d_var(unit_input,unit_output,'aqfrac', pcnst_extd, aqfrac)
-        call write_1d_var(unit_input,unit_output,'icwmr',pver,icwmr(yaml%col_print,:))
-        call write_1d_var(unit_input,unit_output,'rprd',pver,rprd(yaml%col_print,:))
+        call write_1d_var(unit_input,unit_output,'icwmr',pver,icwmr(icol,:))
+        call write_1d_var(unit_input,unit_output,'rprd',pver,rprd(icol,:))
         call write_2d_var(unit_input, unit_output,'conu', pcnst_extd, pverp, conu)
-        call write_var(unit_input, unit_output,'xx_wcldbase',xx_wcldbase(yaml%col_print))
-        call write_var(unit_input, unit_output,'xx_kcldbase',xx_kcldbase(yaml%col_print))
+        call write_var(unit_input, unit_output,'xx_wcldbase',xx_wcldbase(icol))
+        call write_var(unit_input, unit_output,'xx_kcldbase',xx_kcldbase(icol))
 
 
         !call write_var(unit_input, unit_output, fld_name,field)!write a single variable

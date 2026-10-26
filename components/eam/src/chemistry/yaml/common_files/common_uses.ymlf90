@@ -20,6 +20,7 @@ use spmd_utils,   only : masterproc
 
 ! modal_aero_convproc.F90
 !#define YAML_CONV
+#define YAML_CONV2
 
 ! aero_model.F90 
 !#define YAML_AERO_MODEL

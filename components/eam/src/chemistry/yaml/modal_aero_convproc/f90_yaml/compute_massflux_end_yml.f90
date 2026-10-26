@@ -8,7 +8,7 @@
      !start writing data
      call write_1d_output_var(unit_output,'mu_i', pverp,mu_i(:))
      call write_1d_output_var(unit_output,'md_i', pverp,md_i(:))
-     call write_output_var(unit_output,'xx_mfup_max',xx_mfup_max(yaml%col_print))
+     call write_output_var(unit_output,'xx_mfup_max',xx_mfup_max(icol))
 
      !<add code for writing data here>
      !call write_output_var(unit_output, fld_name, field, inp_out_str)  !write a single output variable

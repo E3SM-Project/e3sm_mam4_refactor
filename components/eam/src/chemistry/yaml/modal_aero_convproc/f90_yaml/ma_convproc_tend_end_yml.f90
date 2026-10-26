@@ -1,4 +1,4 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV2
   ! YAML file output generation code- DO NOT PORT to C++
   if(yaml%flag_print  .and. convtype=='deep' .and. n_calls==1) then ! if this column exists in lchnk
 
@@ -7,11 +7,11 @@
 
      !start writing data
      !<add code for writing data here>
-     call write_2d_output_var(unit_output,'dqdt',pver,ncnst,dqdt(yaml%col_print, :,:))
-     call write_2d_output_var(unit_output,'qsrflx', pcnst, nsrflx,qsrflx(yaml%col_print, :,:))
-     call write_output_var(unit_output,'xx_mfup_max',xx_mfup_max(yaml%col_print))
-     call write_output_var(unit_output,'xx_wcldbase',xx_wcldbase(yaml%col_print))
-     call write_output_var(unit_output,'xx_kcldbase',xx_kcldbase(yaml%col_print))
+     call write_2d_output_var(unit_output,'dqdt',pver,ncnst,dqdt(ideep(1), :,:))
+     call write_2d_output_var(unit_output,'qsrflx', pcnst, nsrflx,qsrflx(ideep(1), :,:))
+     call write_output_var(unit_output,'xx_mfup_max',xx_mfup_max(ideep(1)))
+     call write_output_var(unit_output,'xx_wcldbase',xx_wcldbase(ideep(1)))
+     call write_output_var(unit_output,'xx_kcldbase',xx_kcldbase(ideep(1)))
 
      !call write_output_var(unit_output, fld_name, field, inp_out_str)  !write a single output variable
      !call write_1d_output_var(unit_output, fld_name, dim, field, inp_out_str) !writes 1D variables of any dimension in the output python module

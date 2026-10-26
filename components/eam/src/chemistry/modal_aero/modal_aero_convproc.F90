@@ -220,6 +220,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
                             !  6 = pseudo precip-evap resuspension (for history file)
 
 
+#include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_intr_beg_yml.f90"
+
 !
 ! Initialize
 !
@@ -314,6 +316,7 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
         endif
      enddo
 
+#if 0
      !
      ! do shallow conv processing
      !
@@ -335,6 +338,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
               qsrflx, dt,                            &  ! in
               ptend_lq, ptend_q,       qnew          )  ! inout
 
+
+
      ! update variables for output
      do icnst = 1, pcnst
         if ( .not. dotend(icnst) ) cycle
@@ -350,7 +355,7 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
                 + qsrflx(1:ncol,icnst,4) + qsrflx(1:ncol,icnst,5)
         endif
      enddo
-
+#endif 
   endif ! (convproc_do_aer  .or. convproc_do_gas) then
 
 ! output wet deposition fields to history
@@ -373,6 +378,8 @@ subroutine ma_convproc_intr( state, dt,                             & ! in
         enddo ! ll
      enddo ! n
   endif
+
+#include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_intr_end_yml.f90"
 
 end subroutine ma_convproc_intr
 
@@ -535,8 +542,8 @@ subroutine ma_convproc_dp_intr(                &
                      dqdt,                                           & ! out
                      dotend,     nsrflx,                             &
                      qsrflx,                                         & ! out
-                     species_class,                                  &
-                     xx_mfup_max, xx_wcldbase, xx_kcldbase           ) ! out
+                     species_class,                                  &                                  
+                     xx_mfup_max, xx_wcldbase, xx_kcldbase           , yaml ) ! out
 
 
     ! output diagnostics fields
@@ -617,7 +624,7 @@ subroutine ma_convproc_sh_intr(                 &
    integer   :: maxg(pcols)       ! Index of cloud bot for each column
    integer   :: ideep(pcols)      ! Gathering array [index]
    integer   :: lengath           ! Gathered min lon indices over which to operate
-
+#if 0
 #include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_sh_intr_beg_yml.f90"
 
 !
@@ -677,7 +684,7 @@ subroutine ma_convproc_sh_intr(                 &
                      dqdt,                                           & ! out
                      dotend,     nsrflx,                             &
                      qsrflx,                                         & ! out
-                     species_class,                                  &
+                     species_class,                                  & 
                      xx_mfup_max, xx_wcldbase, xx_kcldbase           ) ! out
 
     ! output diagnostics fields
@@ -686,6 +693,7 @@ subroutine ma_convproc_sh_intr(                 &
     call outfld( 'SH_KCLDBASE', xx_kcldbase, pcols, lchnk )
 
 #include "../yaml/modal_aero_convproc/f90_yaml/ma_convproc_sh_intr_end_yml.f90"
+#endif
 end subroutine ma_convproc_sh_intr
 
 !=========================================================================================
@@ -727,7 +735,8 @@ subroutine ma_convproc_tend(                                         &
                      doconvproc, nsrflx,                             & ! in
                      qsrflx,                                         & ! out
                      species_class,                                  & ! in
-                     xx_mfup_max, xx_wcldbase, xx_kcldbase           ) ! out
+                     xx_mfup_max, xx_wcldbase, xx_kcldbase,          & ! out
+                     yaml                                            ) ! in - YAML validation data structure
 
 !----------------------------------------------------------------------- 
 ! 
@@ -993,8 +1002,8 @@ jtsub_loop_main_aa: &
                 dt,     dp_i,   dpdry_i,        cldfrac,                & ! in
                 rhoair_i,       zmagl,  dz,     mu_i,   eudp,           & ! in
                 const,  temperature,    aqfrac, icwmr,  rprd,           & ! in
-                fa_u,   dconudt_wetdep,         dconudt_activa,         & ! out
-                conu,           xx_wcldbase,    xx_kcldbase             ) ! inout
+                fa_u,   dconudt_wetdep,         dconudt_activa,         & ! out 
+                conu,           xx_wcldbase,    xx_kcldbase             , yaml ) ! inout
 
 
         ! Compute downdraft mixing ratios from cloudtop to cloudbase
@@ -1027,6 +1036,7 @@ jtsub_loop_main_aa: &
 
         ! calculate effects of precipitation evaporation
         call ma_precpevap_convproc(                             & 
+               lchnk,                                           & ! in
                dcondt_wetdep,                                   & ! in
                rprd,   evapc,           dpdry_i,                & ! in
                icol,   ktop,            pcnst_extd,             & ! in
@@ -1386,7 +1396,8 @@ jtsub_loop_main_aa: &
                 rhoair_i,       zmagl,  dz,     mu_i,   eudp,           & ! in
                 const,  temperature,    aqfrac, icwmr,  rprd,           & ! in
                 fa_u,   dconudt_wetdep,         dconudt_activa,         & ! out
-                conu,           xx_wcldbase,    xx_kcldbase             ) ! inout 
+                conu,           xx_wcldbase,    xx_kcldbase,            & ! inout
+                yaml                                                    ) ! in - YAML validation data structure 
 !-----------------------------------------------------------------------
 ! Compute updraft mixing ratios from cloudbase to cloudtop 
 ! as well as tendencies of wetdeposition and activation from updraft
@@ -1499,7 +1510,7 @@ jtsub_loop_main_aa: &
 ! Now apply transformation and removal changes
 
             ! aerosol activation - method 2
-            call compute_activation_tend(                       &
+            call compute_activation_tend( yaml,                       &
                         icol,           kk,        f_ent,       & ! in
                         cldfrac_i,      rhoair_i,  mu_i,        & ! in
                         dt_u,   wup,    icwmr,     temperature, & ! in
@@ -1560,7 +1571,7 @@ jtsub_loop_main_aa: &
 !       and Thunderstorm Project data which they also show
 !    the vertical profile shape is a crude fit to their median updraft profile
    else
-       zkm = zmagl(kk)*1.0e-3
+       zkm = zmagl(kk)*1.0_r8e-3
        if (zkm .ge. 1.0) then
            wup(kk) = w_peak*((zkm/w_peak)**0.21_r8)
        else
@@ -1573,7 +1584,7 @@ jtsub_loop_main_aa: &
    end subroutine compute_wup
 
 !====================================================================================
-   subroutine compute_activation_tend(                          &
+   subroutine compute_activation_tend( yaml,                          &
                         icol,           kk,        f_ent,       & ! in
                         cldfrac_i,      rhoair_i,  mu_i,        & ! in
                         dt_u,   wup,    icwmr,     temperature, & ! in
@@ -1612,8 +1623,8 @@ jtsub_loop_main_aa: &
 
    logical      :: do_act_this_lev      ! flag for doing activation at current level
    integer      :: kp1                  ! kk + 1
-#include "../yaml/modal_aero_convproc/f90_yaml/compute_activation_tend_beg_yml.f90"
-
+#include "../yaml/modal_aero_convproc/f90_yaml/compute_activation_tend_decl_yml.f90"
+#include "../yaml/modal_aero_convproc/f90_yaml/compute_activation_tend_beg_yml_v2.f90"
    ! initiate variables
    do_act_this_lev = .false.
    kp1 = kk+1
@@ -1634,8 +1645,10 @@ jtsub_loop_main_aa: &
         kactcnt = kactcnt + 1
    endif
 
+
+
    if ( do_act_this_lev ) then
-        call ma_activate_convproc(                                 &
+        call ma_activate_convproc( yaml,                                 &
                      conu(:,kk), dconudt_activa(:,kk),             & ! inout
                      f_ent,      dt_u(kk),            wup(kk),     & ! in
                      temperature(icol,kk),            rhoair_i(kk),& ! in
@@ -1646,7 +1659,7 @@ jtsub_loop_main_aa: &
    end subroutine compute_activation_tend
 
 !=========================================================================================
-   subroutine ma_activate_convproc(             &
+   subroutine ma_activate_convproc( yaml,             &
               conu,       dconudt,              & ! inout
               f_ent,      dt_u,      wup,       & ! in
               tair,       rhoair,               & ! in
@@ -2107,6 +2120,7 @@ jtsub_loop_main_aa: &
 
 !=========================================================================================
    subroutine ma_precpevap_convproc(                           &
+               lchnk,                                           & ! in
               dcondt_wetdep,                                   & ! in
               rprd,    evapc,         dpdry_i,                 & ! in
               icol,    ktop,          pcnst_extd,              & ! in
@@ -2132,6 +2146,7 @@ jtsub_loop_main_aa: &
 !-----------------------------------------------------------------------
 ! arguments
 ! (note:  TMR = tracer mixing ratio)
+    integer,  intent(in)    :: lchnk             ! chunk identifier
    integer,  intent(in)    :: pcnst_extd        ! aerosol dimension [unitless]
    real(r8), intent(inout) :: dcondt(pcnst_extd,pver)
                               ! overall TMR tendency from convection [kg/kg/s]
@@ -2220,6 +2235,7 @@ jtsub_loop_main_aa: &
 
 ! step 2 - precip production and aerosol scavenging
       call  ma_precpprod(                                         &
+              lchnk,                                              & ! in
               rprd,   dpdry_i,  icol,    kk,    pcnst_extd,       & ! in
               doconvproc_extd,  x_ratio,        species_class,    & ! in
               pr_flux,        pr_flux_tmp,       pr_flux_base,    & ! inout
@@ -2298,6 +2314,7 @@ jtsub_loop_main_aa: &
 
 !=========================================================================================
    subroutine ma_precpprod(                                       &
+               lchnk,                                              &  ! in
               rprd,   dpdry_i,  icol,   kk,     pcnst_extd,       &  ! in
               doconvproc_extd,  x_ratio,        species_class,    &  ! in
               pr_flux,        pr_flux_tmp,       pr_flux_base,    &  ! inout
@@ -2308,6 +2325,7 @@ jtsub_loop_main_aa: &
 ! step 2 in ma_precpevap_convproc: aerosol scavenging from precipitation production
 !------------------------------------------
 
+   integer,  intent(in)    :: lchnk             ! chunk identifier
    integer,  intent(in)    :: icol  ! normal (ungathered) i index for current column
    integer,  intent(in)    :: kk
    integer,  intent(in)    :: pcnst_extd        ! aerosol dimension [unitless]

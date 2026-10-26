@@ -1,4 +1,4 @@
-#ifdef YAML_CONV
+#ifdef YAML_CONV2
   !<"lchnk" is needed for the following code to work,
   ! temporarily pass it along from upper level subroutines
   ! as y_lchnk and uncomment the following code:
@@ -50,7 +50,7 @@
 
         !start by adding an input string
         call write_input_output_header(unit_input, unit_output,yaml%lchnk_print,yaml%col_print, &
-             'compute_tendencies',yaml%nstep_print, yaml%lev_print)
+             'ma_activate_convproc',yaml%nstep_print, yaml%lev_print)
 
         !< add code for writing data here>
         call write_var(unit_input, unit_output, 'pcnst_extd', pcnst_extd)
