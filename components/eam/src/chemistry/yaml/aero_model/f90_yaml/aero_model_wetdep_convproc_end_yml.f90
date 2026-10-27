@@ -15,18 +15,6 @@
         call write_var(unit_output,'aerdepwetis',aerdepwetis(ideep(1),:))
         call write_var(unit_output,'aerdepwetcw',aerdepwetcw(ideep(1),:))
 
-
-        ! write out fields that are set within intent-out structure 'cam_out'
-
-        call write_var(unit_output,'cam_out_bcphiwet',cam_out%bcphiwet(ideep(1)))
-        call write_var(unit_output,'cam_out_bcphidry',cam_out%bcphidry(ideep(1)))
-        call write_var(unit_output,'cam_out_ocphiwet',cam_out%ocphiwet(ideep(1)))
-        call write_var(unit_output,'cam_out_ocphidry',cam_out%ocphidry(ideep(1)))
-        call write_var(unit_output,'cam_out_dstwet1',cam_out%dstwet1(ideep(1)))
-        call write_var(unit_output,'cam_out_dstwet2',cam_out%dstwet2(ideep(1)))
-        call write_var(unit_output,'cam_out_dstwet3',cam_out%dstwet3(ideep(1)))
-        call write_var(unit_output,'cam_out_dstwet4',cam_out%dstwet4(ideep(1)))
-
         ! ptend is passed as intent-out to aero_model_wetdep, so only include as output data.
         ! The following extract the fields from ptend used as output and write them to the data files.
         ! Use -9999.9 to fill in unused portions of the constituent arrays
