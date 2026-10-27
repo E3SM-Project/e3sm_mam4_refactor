@@ -792,6 +792,7 @@ contains
     type(ptr2d_t) :: qqcw(pcnst)                 !cloud-borne aerosols mass and number mixing rations
 
 #include "../yaml/aero_model/f90_yaml/aero_model_wetdep_beg_yml.f90"
+#include "../yaml/aero_model/f90_yaml/aero_model_wetdep_convproc_beg_yml.f90"
 
     lchnk = state%lchnk
     ncol  = state%ncol
@@ -1093,6 +1094,8 @@ contains
          ideep, lengath,  species_class,                   & ! in
          ptend, aerdepwetis                                ) ! inout
     call t_stopf('ma_convproc')
+
+#include "../yaml/aero_model/f90_yaml/aero_model_wetdep_convproc_end_yml.f90"
 
     call wetdep_inputs_unset(dep_inputs)
 
