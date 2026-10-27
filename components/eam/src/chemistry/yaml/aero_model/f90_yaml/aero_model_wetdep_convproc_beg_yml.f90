@@ -26,6 +26,7 @@
   type(yaml_vars) :: yaml
   integer  :: unit_input, unit_output, y_nstep
   integer  :: convproc_do_aer_int, convproc_do_gas_int
+  logical  :: convproc_do_gas = .false.
 
   ! some subroutines are called multiple times in one timestep, record the number of calls
   integer,save :: n_calls=0
