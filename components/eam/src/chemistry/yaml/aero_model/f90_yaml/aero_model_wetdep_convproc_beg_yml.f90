@@ -26,7 +26,7 @@
   type(yaml_vars) :: yaml
   integer  :: unit_input, unit_output, y_nstep
   integer  :: convproc_do_aer_int, convproc_do_gas_int
-  logical  :: convproc_do_gas = .false.
+  !logical  :: convproc_do_gas = .false.
 
   ! some subroutines are called multiple times in one timestep, record the number of calls
   integer,save :: n_calls=0
@@ -38,7 +38,6 @@
   real(r8), pointer :: wetdens_yaml(:,:,:)
   real(r8), pointer :: qaerwat_yaml(:,:,:)
   real(r8), pointer :: dgnumwet_yaml(:,:,:)
-  real(r8), pointer :: fracis_yaml(:,:,:)
   real(r8), pointer :: rprddp_yaml(:,:)
   real(r8), pointer :: rprdsh_yaml(:,:)
   real(r8), pointer :: evapcsh_yaml(:,:)
@@ -67,7 +66,7 @@
   !populate YAML structure
   !(**remove yaml%lev_print, nstep_print, col_print if generating data for a dependent subroutines**)
   yaml%lev_print = 68       !level, but all fields are actually output for the whole vertical column
-  yaml%nstep_print = 379 !time step
+  yaml%nstep_print = 3 !time step
 
   y_lchnk = state%lchnk
   yaml%col_print = icolprnt(y_lchnk)                !column to write data
@@ -177,7 +176,6 @@
         call pbuf_get_field(pbuf, wetdens_ap_idx, wetdens_yaml)
         call pbuf_get_field(pbuf, qaerwat_idx,    qaerwat_yaml)
         call pbuf_get_field(pbuf, dgnumwet_idx, dgnumwet_yaml, start=(/1,1,1/), kount=(/pcols,pver,nmodes/) )
-        call pbuf_get_field(pbuf, fracis_idx,   fracis_yaml,   start=(/1,1,1/), kount=(/pcols,pver, pcnst/) )
         call pbuf_get_field(pbuf, rprddp_idx,      rprddp_yaml  )
         call pbuf_get_field(pbuf, rprdsh_idx,      rprdsh_yaml  )
         call pbuf_get_field(pbuf, nevapr_shcu_idx, evapcsh_yaml )
@@ -189,7 +187,6 @@
         call write_var(unit_input,unit_output,'wetdens',wetdens_yaml(ideep(1),:,:))  
         call write_var(unit_input,unit_output,'qaerwat',qaerwat_yaml(ideep(1),:,:)) 
         call write_var(unit_input,unit_output,'dgnumwet',dgnumwet_yaml(ideep(1),:,:))  
-        call write_var(unit_input,unit_output,'fracis',fracis_yaml(ideep(1),:,:)) 
         call write_var(unit_input,unit_output,'rprddp',rprddp_yaml(ideep(1),:)) 
         call write_var(unit_input,unit_output,'rprdsh',rprdsh_yaml(ideep(1),:)) 
         call write_var(unit_input,unit_output,'evapcsh',evapcsh_yaml(ideep(1),:)) 

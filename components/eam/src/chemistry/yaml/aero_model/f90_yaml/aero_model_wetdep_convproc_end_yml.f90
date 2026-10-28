@@ -10,7 +10,6 @@
         call write_var(unit_output,'wetdens',wetdens(ideep(1),:,:))
         call write_var(unit_output,'qaerwat',qaerwat(ideep(1),:,:))
         call write_var(unit_output,'dgnumwet',dgnumwet(ideep(1),:,:))
-        call write_var(unit_output,'fracis',fracis(ideep(1),:,:))  
 
         call write_var(unit_output,'aerdepwetis',aerdepwetis(ideep(1),:))
         call write_var(unit_output,'aerdepwetcw',aerdepwetcw(ideep(1),:))
